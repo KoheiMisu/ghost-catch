@@ -1,0 +1,12 @@
+/data/init.d/*
+/data/mysql/*
+.idea/
+go-apps/*
+!go-apps/.gitkeep
+php56-apache/*
+!php56-apache/.gitkeep
+docker-configs/nginx/certs/*
+docker-configs/mysql
+!docker-configs/mysql/.gitkeep
+!docker-configs/nginx/certs/.gitkeep
+.DS_Store

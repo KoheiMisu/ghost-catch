@@ -1,0 +1,25 @@
+version: '2'
+
+services:
+  nginx-proxy:
+    build: docker-configs/nginx
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - /etc/localtime:/etc/localtime:ro
+      - ./docker-configs/nginx/certs:/etc/nginx/certs
+    ports:
+      - "10080:80"
+      - "10443:443"
+    links:
+      - go
+    depends_on:
+      - go
+    tty: true
+  go:
+    build: docker-configs/golang
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./go-apps:/go/src
+    command: go run main.go
+    tty: true
