@@ -17,11 +17,11 @@ services:
     tty: true
   go-19:
     build: docker-configs/golang
-    ports:
-      - "9000:9000"
-    # volumes:
-    #   - ./go-apps:/go/src
+    volumes:
+      - ./client-apps/fantome-pris-client/dist:/go/src/project/ghost-catch-api/static/html
     command: ./ghost-catch-api
+    depends_on:
+      - node-89
     tty: true
   node-89:
     build: docker-configs/node
