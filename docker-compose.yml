@@ -1,4 +1,4 @@
-version: '2'
+version: '2.1'
 
 services:
   nginx-proxy:
@@ -11,15 +11,20 @@ services:
       - "10080:80"
       - "10443:443"
     links:
-      - go
+      - go-19
     depends_on:
-      - go
+      - go-19
     tty: true
-  go:
+  go-19:
     build: docker-configs/golang
     ports:
       - "9000:9000"
+    # volumes:
+    #   - ./go-apps:/go/src
+    command: ./ghost-catch-api
+    tty: true
+  node-89:
+    build: docker-configs/node
     volumes:
-      - ./go-apps:/go/src
-    command: go run main.go
+      - ./client-apps:/var/www
     tty: true

@@ -1,5 +1,7 @@
 FROM alpine:3.6
 
+RUN apk add --update openssl-dev git
+
 RUN apk add --no-cache ca-certificates
 
 ENV GOLANG_VERSION 1.8.3
@@ -48,9 +50,23 @@ RUN set -eux; \
 	go version
 
 ENV GOPATH /go
+ENV PROJECT_ROOT $GOPATH/src/project
+ENV PROJECT_NAME ghost-catch-api
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 
-RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
-WORKDIR $GOPATH/src
+# create project root
+RUN mkdir -p "$GOPATH/src/project" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
+
+# install dep
+RUN go get -u github.com/golang/dep/cmd/dep
+
+WORKDIR $PROJECT_ROOT
+
+# build app
+ARG CACHE_DATE=2016-01-01
+RUN git clone https://github.com/smith-30/ghost-catch-api.git
+RUN cd $PROJECT_ROOT/$PROJECT_NAME && dep ensure && go build -v
+
+WORKDIR $PROJECT_ROOT/$PROJECT_NAME
 
 COPY go-wrapper /usr/local/bin/
