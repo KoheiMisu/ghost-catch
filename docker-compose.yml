@@ -18,8 +18,10 @@ services:
   go-19:
     build: docker-configs/golang
     volumes:
-      - ./client-apps/fantome-pris-client/dist:/go/src/project/ghost-catch-api/static/html
+      - ./client-apps/fantome-pris-client/dist:/go/src/project/ghost-catch-api/static/html/games
     command: ./ghost-catch-api
+    ports:
+      - "9090:9000"
     depends_on:
       - node-89
     tty: true
