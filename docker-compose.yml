@@ -21,8 +21,8 @@ services:
       - ./client-apps/fantome-pris-client/dist:/go/src/project/ghost-catch-api/static/html/games
     command: ./ghost-catch-api
     environment:
-      - HTTP_PORT=${HTTP}
-      - HTTPS_PORT=${HTTPS}
+      - HTTP_PORT=":${HTTP}"
+      - HTTPS_PORT=":${HTTPS}"
     ports:
       - "${HTTP}:${HTTP}"
       - "${HTTPS}:${HTTPS}"
