@@ -11,3 +11,4 @@ docker-configs/mysql
 !docker-configs/nginx/certs/.gitkeep
 client-apps/*
 .DS_Store
+.env
