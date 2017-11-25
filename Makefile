@@ -20,3 +20,6 @@ build-client:
 
 set-client:
 	cd client-apps && git clone https://github.com/smith-30/fantome-pris-client.git
+
+api-log:
+	docker logs -f ghostcatch_go-19_1
