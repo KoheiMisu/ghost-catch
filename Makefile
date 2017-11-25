@@ -9,5 +9,5 @@ build-client:
 	cd ../../ && \
 	docker-compose up -d --force-recreate
 
-fetch-client:
+set-client:
 	cd client-apps && git clone https://github.com/smith-30/fantome-pris-client.git

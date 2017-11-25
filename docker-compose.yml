@@ -1,20 +1,6 @@
 version: '2.1'
 
 services:
-  nginx-proxy:
-    build: docker-configs/nginx
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-      - /etc/localtime:/etc/localtime:ro
-      - ./docker-configs/nginx/certs:/etc/nginx/certs
-    ports:
-      - "10080:80"
-      - "10443:443"
-    links:
-      - go-19
-    depends_on:
-      - go-19
-    tty: true
   go-19:
     build: docker-configs/golang
     env_file:
@@ -23,7 +9,6 @@ services:
       - ./client-apps/fantome-pris-client/dist:/go/src/project/ghost-catch-api/static/html/games
     command: ./ghost-catch-api
     ports:
-      - "${HTTP}:${HTTP}"
       - "${HTTPS}:${HTTPS}"
     depends_on:
       - node-89
