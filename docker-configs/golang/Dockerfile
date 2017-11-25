@@ -30,22 +30,19 @@ RUN set -eux; \
 		GOHOSTOS="$(go env GOHOSTOS)" \
 		GOHOSTARCH="$(go env GOHOSTARCH)" \
 	; \
-	\
+	: `# install` && \
 	wget -O go.tgz "https://golang.org/dl/go$GOLANG_VERSION.src.tar.gz"; \
 	echo '5f5dea2447e7dcfdc50fa6b94c512e58bfba5673c039259fd843f68829d99fa6 *go.tgz' | sha256sum -c -; \
 	tar -C /usr/local -xzf go.tgz; \
 	rm go.tgz; \
-	\
 	cd /usr/local/go/src; \
 	for p in /go-alpine-patches/*.patch; do \
 		[ -f "$p" ] || continue; \
 		patch -p2 -i "$p"; \
 	done; \
 	./make.bash; \
-	\
 	rm -rf /go-alpine-patches; \
 	apk del .build-deps; \
-	\
 	export PATH="/usr/local/go/bin:$PATH"; \
 	go version
 
@@ -65,7 +62,7 @@ WORKDIR $PROJECT_ROOT
 # build app
 ARG CACHE_DATE=2016-01-01
 RUN git clone https://github.com/smith-30/ghost-catch-api.git
-RUN cd $PROJECT_ROOT/$PROJECT_NAME && dep ensure && go build -v
+RUN cd $PROJECT_ROOT/$PROJECT_NAME && dep ensure && go build -v -ldflags "-X main.revision=$(git rev-parse --short HEAD)"
 
 WORKDIR $PROJECT_ROOT/$PROJECT_NAME
 

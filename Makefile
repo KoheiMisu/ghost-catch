@@ -1,3 +1,5 @@
+DATE=$(shell date "+%Y%m%d-%H%M%S")
+
 start-app:
 	docker-compose up -d
 
@@ -8,7 +10,7 @@ restart-app:
 	docker-compose up -d --force-recreate
 
 build-api:
-	docker-compose build --build-arg CACHE_DATE=$(date "+%Y%m%d-%H%M%S") go-19 && \
+	docker-compose build --build-arg CACHE_DATE=$(DATE) go-19 && \
 	make restart-app
 
 build-client:
@@ -23,3 +25,6 @@ set-client:
 
 api-log:
 	docker logs -f ghostcatch_go-19_1
+
+test:
+	echo $(DATE)
