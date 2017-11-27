@@ -7,6 +7,7 @@ services:
       - ./.env
     volumes:
       - ./client-apps/fantome-pris-client/dist:/go/src/project/ghost-catch-api/static/html/games
+      - ./go-apps/certs:/var/www/certs
     command: ./ghost-catch-api
     ports:
       - "${HTTPS}:${HTTPS}"

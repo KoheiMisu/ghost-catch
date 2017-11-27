@@ -54,6 +54,9 @@ ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 # create project root
 RUN mkdir -p "$GOPATH/src/project" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
 
+# create cache dir
+RUN mkdir -p "/var/www/certs" && chmod -R 777 "/var/www/certs"
+
 # install dep
 RUN go get -u github.com/golang/dep/cmd/dep
 
