@@ -10,6 +10,7 @@ services:
     command: ./ghost-catch-api
     ports:
       - "${HTTPS}:${HTTPS}"
+      - "80:80"
     depends_on:
       - node-89
     tty: true
